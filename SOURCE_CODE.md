@@ -266,6 +266,135 @@ CSS inline com media queries para adaptação responsiva:
 }
 ```
 
+
+## 🏗️ Nova Arquitetura Atualizada (2025)
+
+### Estrutura de Componentes Atomic Design
+
+O código foi completamente refatorado seguindo o padrão Atomic Design:
+
+#### 🔹 Atoms (Componentes Básicos)
+- **SerifHeading**: Títulos em fonte serif editorial
+- **Text**: Textos em fonte sans-serif
+- **Divider**: Separadores visuais
+- **Link**: Links com estilo editorial
+
+#### 🔸 Molecules (Combinações)
+- **ArticleCard**: Cartão de artigo com imagem, título, lead e metadados
+- **NewsletterHeader**: Cabeçalho com branding Pardal
+- **BriefingCard**: Cartão compacto para briefings rápidos
+- **CategoryBadge**: Badge de categoria com cor
+- **PairingBadge**: Badge de pareamento de categoria
+
+#### 🔷 Organisms (Seções Completas)
+- **Molecules.tsx**: Arquivo com todos os molecules
+- **Organisms.tsx**: Arquivo com todos os organisms
+- **Pages.tsx**: Páginas completas (EditionPage, ArticlePage, LedgerPage)
+
+### 📋 Novos Arquivos no Projeto
+
+```
+pardal-regional-intelligence/
+├── App.tsx                 # Componente principal
+├── constants.ts           # Constantes e configurações
+├── index.html             # Template HTML
+├── index.tsx              # Entry point
+├── Molecules.tsx          # Molecules (ArticleCard, etc.)
+├── Organisms.tsx          # Organisms (seções completas)
+├── Pages.tsx              # Pages (EditionPage, ArticlePage)
+├── Themes.tsx             # Sistema de temas
+├── UI.tsx                 # Atoms (SerifHeading, Text, etc.)
+├── Views.tsx              # Gerenciamento de views
+└── metadata.json         # Metadados do AI Studio
+```
+
+### 🎨 Sistema de Temas (Themes.tsx)
+
+Implementa temas claro, escuro e modo A+ (acessibilidade):
+
+```typescript
+- light: Fundo off-white (#FAFAF9), texto escuro
+- dark: Fundo escuro (#171717), texto claro  
+- a11y: Modo A+ com contraste aumentado e tipografia 20% maior
+```
+
+### 📊 Interface Article Atualizada
+
+```typescript
+export type City = 'São João' | 'Mococa' | 'Rio Pardo' | 'Casa Branca' | 'Regional' | 'Global';
+export type View = 'threshold' | 'edition' | 'article' | 'ledger' | 'governance';
+export type Filter = 'Power' | 'The Harvest' | 'Enterprise' | 'Urbanity' | 'The Pulse' | 'Constitution';
+
+interface Source {
+  name: string;
+  url: string;
+}
+
+interface Patron {
+  id: string;
+  name: string;
+  role: string;
+  tagline: string;
+}
+
+interface Briefupdate {
+  slug: string;
+  title: string;
+  impact: string;
+}
+
+interface Article {
+  id: string;
+  slug: string;
+  title: string;
+  lead: string;
+  city: City;
+  pillar: Filter;
+  format: ArticleFormat[];
+  context: string[];
+  sources: Source[];
+  update: boolean;
+  pairedId?: string;
+  volumeId: string;
+}
+
+interface Edition {
+  id: string;
+  releaseDate: string;
+  viewsAfterH: string;
+  bigstory: string[];
+  articleIds: string[];
+  volumeId: string;
+}
+```
+
+### 🔀 Fluxo de Navegação
+
+Sistema baseado em Views:
+
+1. **Threshold**: Entrada editorial (hero com frase de boas-vindas)
+2. **Edition**: Homepage com grade de artigos
+3. **Article**: Visualização completa do artigo
+4. **Ledger**: Registro/histórico de edições
+5. **Governance**: Governança e categorias
+
+### 🎯 Mock Data PATRIÓNIOS
+
+Nova estrutura de dados regionais:
+
+- **Cooperativa Agro-Mantiqueira** (Volume Patron)
+- **Laticiciano Regional** (Pareamento)
+- Artigos com fontes, contexto e updates
+- Sistema de briefings por categoria
+
+### 🛠️ Utilitários e Helpers
+
+```typescript
+// constants.ts
+- PATRIÓNIOS: Array de patrocinadores
+- ARTICLES: Mock data completo de artigos
+- Helpers de filtragem e busca
+```
 ---
 
 **👁️ Para visualizar o código completo, acesse o [Google AI Studio](https://aistudio.google.com/apps/drive/1HCswQBaOYAcpXJQyeN65kxENsivlPQd-)**
